@@ -1,0 +1,12 @@
+{
+  "name": "agent-workflow-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mini n8n-style AI agent workflow builder on nhost (Hasura + Auth + Functions) + Next.js",
+  "scripts": {
+    "hasura": "npx hasura --project nhost",
+    "dev": "npm --prefix frontend run dev"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

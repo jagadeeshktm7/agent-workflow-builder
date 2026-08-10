@@ -1,0 +1,29 @@
+[global]
+# Minimal config on purpose: everything not listed uses nhost defaults.
+# Secrets (admin secret, JWT secret) are managed by nhost Cloud, not stored here.
+
+[hasura]
+version = "v2.48.10-ce"
+
+[hasura.settings]
+# Allow the React frontend (Vercel) to call the GraphQL API from the browser.
+corsDomain = ["*"]
+
+[auth]
+
+[auth.signUp]
+enabled = true
+
+[auth.redirections]
+clientUrl = "http://localhost:3000"
+allowedUrls = ["http://localhost:3000"]
+
+[auth.method.emailPassword]
+# Test project: skip email verification so signups work without delivering mail.
+emailVerificationRequired = false
+# nhost enforces a minimum of 9; keep it explicit for seed/test accounts.
+passwordMinLength = 9
+
+[functions]
+[functions.node]
+version = 22

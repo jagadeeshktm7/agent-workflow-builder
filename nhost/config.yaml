@@ -1,0 +1,9 @@
+version: 3
+endpoint: https://PLACEHOLDER.hasura.nhost.run
+admin_secret: PLACEHOLDER
+metadata_directory: metadata
+migrations_directory: migrations
+seed_directory: seeds
+actions:
+  kind: synchronous
+  handler_webhook_baseurl: https://PLACEHOLDER.functions.nhost.run/v1
