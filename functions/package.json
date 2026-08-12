@@ -1,0 +1,9 @@
+{
+  "name": "agent-workflow-builder-functions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "nhost serverless functions: triggerWorkflowRun action webhook",
+  "dependencies": {
+    "@google/genai": "^2.13.0"
+  }
+}

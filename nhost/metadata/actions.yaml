@@ -1,6 +1,22 @@
-actions: []
+actions:
+  - name: approveStep
+    definition:
+      kind: synchronous
+      handler: https://pgqeznozctfsgrgpgxwg.functions.ap-south-1.nhost.run/v1/approve-step
+    permissions:
+      - role: owner
+      - role: editor
+  - name: triggerWorkflowRun
+    definition:
+      kind: synchronous
+      handler: https://pgqeznozctfsgrgpgxwg.functions.ap-south-1.nhost.run/v1/trigger-workflow-run
+    permissions:
+      - role: owner
+      - role: editor
 custom_types:
   enums: []
   input_objects: []
-  objects: []
+  objects:
+    - name: TriggerWorkflowRunOutput
+    - name: ApproveStepOutput
   scalars: []
