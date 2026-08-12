@@ -41,6 +41,11 @@ passwordMinLength = 9
 [postgres.resources.storage]
 capacity = 1
 
+# Grafana is part of the mandatory observability config; adminPassword has no
+# default. Not used — value is random.
+[observability.grafana]
+adminPassword = "kIBO4TeKJRkIRUah23aTd/GCFmjOc+gz"
+
 [functions]
 [functions.node]
 version = 22
