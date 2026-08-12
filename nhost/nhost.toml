@@ -7,6 +7,10 @@
 #   - hasura.adminSecret
 #   - hasura.webhookSecret
 #   - postgres.resources.storage.capacity
+#   - observability.grafana.adminPassword
+# GEMINI_API_KEY is deliberately NOT committed here (GitHub push protection
+# flags it as a GCP key) — it must be set in dashboard Settings → Environment
+# Variables; the functions runtime reads it from process.env on each deploy.
 
 [hasura]
 version = "v2.48.10-ce"
