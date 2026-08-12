@@ -58,6 +58,7 @@ const objectRels = [
   { table: "workflow_runs", name: "org", remote: "organizations", map: { org_id: "id" } },
   { table: "step_runs", name: "workflow_run", remote: "workflow_runs", map: { workflow_run_id: "id" } },
   { table: "step_runs", name: "workflow_step", remote: "workflow_steps", map: { workflow_step_id: "id" } },
+  { table: "org_usage", name: "org", remote: "organizations", map: { org_id: "id" } },
 ];
 
 // Array rel: source table -> children ("has_many")
