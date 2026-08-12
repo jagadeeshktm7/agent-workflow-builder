@@ -6,7 +6,7 @@ const {
   executeSteps,
   STEP_MARK,
   RUN_MARK,
-} = require('./shared/engine');
+} = require('./_shared/engine');
 
 module.exports = async function approveStep(req, res) {
   const session = req.body?.session_variables || {};

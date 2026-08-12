@@ -6,7 +6,7 @@ const {
   createRun,
   createStepRuns,
   executeSteps,
-} = require('./shared/engine');
+} = require('./_shared/engine');
 
 module.exports = async function triggerWorkflowRun(req, res) {
   const session = req.body?.session_variables || {};
