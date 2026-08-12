@@ -21,7 +21,7 @@ module.exports = async function geminiProbe(req, res) {
         model,
         system_instruction: 'Reply with exactly one word.',
         input: 'Say the single word: yes',
-        generationConfig: { maxOutputTokens: 16, temperature: 0 },
+        generation_config: { max_output_tokens: 16, temperature: 0 },
       });
       results.push({ model, ok: true, ms: Date.now() - t0, output: interaction.output_text });
     } catch (err) {
