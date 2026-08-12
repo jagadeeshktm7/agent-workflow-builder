@@ -1,11 +1,17 @@
 [global]
 # Minimal config on purpose: everything not listed uses nhost defaults.
-# The JWT key below is normally managed by nhost Cloud, but nhost.toml must
-# declare a complete jwtSecrets entry or cloud config validation fails
-# ("hasura.jwtSecrets.0: incomplete value") and the deployment is rejected.
+# Per the nhost config schema (schema.cue), the following fields are REQUIRED
+# and have no defaults — the cloud config validator rejects the deploy if they
+# are missing or incomplete:
+#   - hasura.jwtSecrets     (JWT signing/verification key)
+#   - hasura.adminSecret
+#   - hasura.webhookSecret
+#   - postgres.resources.storage.capacity
 
 [hasura]
 version = "v2.48.10-ce"
+adminSecret = "d48f3d4e0317c6ce954be8f4a3f7eab1f88c5d0a7e6a9a042e7d6f617239a81c"
+webhookSecret = "e3c49fa2fe41b182c9178f487a6b91df60d93972c5a548bf53160835dcf05866"
 
 # HS256 JWT signing/verification key shared by auth and GraphQL services.
 [[hasura.jwtSecrets]]
@@ -30,6 +36,10 @@ allowedUrls = ["http://localhost:3000"]
 emailVerificationRequired = false
 # nhost enforces a minimum of 9; keep it explicit for seed/test accounts.
 passwordMinLength = 9
+
+# 1 GiB persistent disk — the nhost free-tier default.
+[postgres.resources.storage]
+capacity = 1
 
 [functions]
 [functions.node]
