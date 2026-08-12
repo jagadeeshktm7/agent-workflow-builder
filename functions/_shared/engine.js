@@ -2,7 +2,13 @@ const { GoogleGenAI } = require('@google/genai');
 
 const ADMIN_SECRET = process.env.NHOST_ADMIN_SECRET;
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
-const TIME_BUDGET_MS = Number(process.env.RUN_TIME_BUDGET_MS || 9000);
+// Engine budget must stay well under the serverless function's hard timeout
+// (10s on nhost) so runs always fail cleanly instead of the lambda being
+// killed mid-flight. Cold start + Gemini round trip eats ~2s + ~4-6s.
+const TIME_BUDGET_MS = Number(process.env.RUN_TIME_BUDGET_MS || 6000);
+// Only attempt a retry when there is still enough budget left for one more
+// attempt; otherwise report the first error immediately.
+const RETRY_MARGIN_MS = 2000;
 
 function graphqlUrl() {
   const raw = process.env.NHOST_HASURA_URL || process.env.NHOST_GRAPHQL_URL || '';
@@ -67,6 +73,7 @@ async function runLlmCall(config) {
     model: config.model || 'gemini-3.6-flash',
     system_instruction: config.system || 'You are a concise workflow automation assistant. Reply in under 80 words.',
     input: config.prompt,
+    generation_config: { max_output_tokens: 128 },
   });
   return { result: interaction.output_text || '' };
 }
@@ -255,12 +262,13 @@ async function executeSteps({ steps, stepRunIds, runId, orgId, startIndex = 0, p
 
     let outcome;
     let attempts = [];
+    const budgetLeft = () => TIME_BUDGET_MS - (Date.now() - started);
     try {
       outcome = await executeStep(step, previousOutput);
       attempts.push({ attempt: 1, ok: true });
     } catch (err1) {
       attempts.push({ attempt: 1, ok: false, error: err1.message });
-      if (step.type === 'llm_call' || step.type === 'http_request') {
+      if ((step.type === 'llm_call' || step.type === 'http_request') && budgetLeft() > RETRY_MARGIN_MS) {
         try {
           await gql(STEP_MARK.running, { stepRunId: stepRunIds[step.id], attempt: 2 });
           outcome = await executeStep(step, previousOutput);
