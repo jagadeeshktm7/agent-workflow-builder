@@ -9,3 +9,7 @@ out/
 .DS_Store
 # local hasura-cli secrets file (config.yaml is safe to commit; .env is not)
 nhost/.env
+# nhost CLI local dev secrets (per nhost README: ./secrets holds dev secrets)
+nhost/secrets/
+functions/.serverless/
+functions/.env*
