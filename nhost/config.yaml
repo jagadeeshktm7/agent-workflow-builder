@@ -1,9 +1,6 @@
 version: 3
-endpoint: https://PLACEHOLDER.hasura.nhost.run
-admin_secret: PLACEHOLDER
+# Endpoint is public (not a secret) so this file is safe to commit.
+endpoint: https://pgqeznozctfsgrgpgxwg.hasura.ap-south-1.nhost.run
 metadata_directory: metadata
 migrations_directory: migrations
 seed_directory: seeds
-actions:
-  kind: synchronous
-  handler_webhook_baseurl: https://PLACEHOLDER.functions.nhost.run/v1

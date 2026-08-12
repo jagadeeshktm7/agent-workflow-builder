@@ -1,0 +1,13 @@
+table:
+  name: workflow_triggers
+  schema: public
+object_relationships:
+  - name: workflow
+    using:
+      manual_configuration:
+        column_mapping:
+          workflow_id: id
+        insertion_order: null
+        remote_table:
+          name: workflows
+          schema: public

@@ -7,3 +7,5 @@ out/
 .env*.local
 *.log
 .DS_Store
+# local hasura-cli secrets file (config.yaml is safe to commit; .env is not)
+nhost/.env
