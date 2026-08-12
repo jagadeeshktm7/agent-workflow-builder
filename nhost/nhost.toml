@@ -1,9 +1,16 @@
 [global]
 # Minimal config on purpose: everything not listed uses nhost defaults.
-# Secrets (admin secret, JWT secret) are managed by nhost Cloud, not stored here.
+# The JWT key below is normally managed by nhost Cloud, but nhost.toml must
+# declare a complete jwtSecrets entry or cloud config validation fails
+# ("hasura.jwtSecrets.0: incomplete value") and the deployment is rejected.
 
 [hasura]
 version = "v2.48.10-ce"
+
+# HS256 JWT signing/verification key shared by auth and GraphQL services.
+[[hasura.jwtSecrets]]
+type = "HS256"
+key = "07ce04e06d7ebcb7aaaae3959d7c7c184bbeb1f25140730759ac12620c546cf7"
 
 [hasura.settings]
 # Allow the React frontend (Vercel) to call the GraphQL API from the browser.
