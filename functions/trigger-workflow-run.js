@@ -1,3 +1,4 @@
+// deploy-kick 1: trigger nhost auto-deploy webhook
 const {
   gql,
   actionError,
